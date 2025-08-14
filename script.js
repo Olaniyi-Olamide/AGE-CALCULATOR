@@ -17,6 +17,14 @@ const days = document.querySelector(".days");
 const months = document.querySelector(".months");
 const years = document.querySelector(".years");
 
+input.forEach((_, i) => {
+  input[i].addEventListener("keypress", function (e) {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  });
+});
+
 // default values
 const defaultValues = function () {
   years.textContent = "- -";
@@ -114,14 +122,6 @@ const handlingErrors = function () {
     errMsgDay.textContent = "Must be a valid date";
   }
 };
-
-input.forEach((_, i) => {
-  input[i].addEventListener("keypress", function (e) {
-    if (!/[0-9]/.test(e.key)) {
-      e.preventDefault();
-    }
-  });
-});
 
 caclBtn.addEventListener("click", () => {
   // Calculating ages
