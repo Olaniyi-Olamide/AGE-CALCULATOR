@@ -18,10 +18,13 @@ const months = document.querySelector(".months");
 const years = document.querySelector(".years");
 
 input.forEach((_, i) => {
-  input[i].addEventListener("keypress", function (e) {
-    if (!/[0-9]/.test(e.key)) {
-      e.preventDefault();
-    }
+  // input[i].addEventListener("keypress", function (e) {
+  //   if (!/[0-9]/.test(e.key)) {
+  //     e.preventDefault();
+  //   }
+  // });
+  input[i].addEventListener("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
   });
 });
 
