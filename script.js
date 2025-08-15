@@ -18,11 +18,6 @@ const months = document.querySelector(".months");
 const years = document.querySelector(".years");
 
 input.forEach((_, i) => {
-  // input[i].addEventListener("keypress", function (e) {
-  //   if (!/[0-9]/.test(e.key)) {
-  //     e.preventDefault();
-  //   }
-  // });
   input[i].addEventListener("input", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
   });
@@ -57,24 +52,27 @@ let daysOld, monthsOld, yearsOld;
 const handlingErrors = function () {
   // Errors for invalid details
   if (+inputYear.value > currYear || +inputYear.value < 1800) {
-    errMsgYear.textContent = "Must be a valid year";
     defaultErrors();
+    defaultValues();
+    errMsgYear.textContent = "Must be a valid year";
   } else {
     errMsgYear.textContent = "";
     labelYear.style.color = "hsl(0, 1%, 44%)";
     inputYear.style.borderColor = "hsl(259, 100%, 65%)";
   }
-  if (+inputMonth.value > 12) {
-    errMsgMonth.textContent = "Must be a valid month";
+  if (+inputMonth.value > 12 || +inputMonth.value <= 0) {
     defaultErrors();
+    defaultValues();
+    errMsgMonth.textContent = "Must be a valid month";
   } else {
     errMsgMonth.textContent = "";
     labelMonth.style.color = "hsl(0, 1%, 44%)";
     inputMonth.style.borderColor = "hsl(259, 100%, 65%)";
   }
-  if (+inputDay.value > 31) {
-    errMsgDay.textContent = "Must be a valid day";
+  if (+inputDay.value > 31 || +inputDay.value <= 0) {
     defaultErrors();
+    defaultValues();
+    errMsgDay.textContent = "Must be a valid day";
   } else {
     errMsgDay.textContent = "";
     labelDay.style.color = "hsl(0, 1%, 44%)";
