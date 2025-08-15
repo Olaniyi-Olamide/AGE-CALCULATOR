@@ -8,7 +8,6 @@ const input = document.querySelectorAll(".input");
 const inputDay = document.querySelector("#input__day");
 const inputMonth = document.querySelector("#input__month");
 const inputYear = document.querySelector("#input__year");
-const errMsg = document.querySelectorAll(".err__msg");
 const errMsgDay = document.querySelector(".err__msg__day");
 const errMsgMonth = document.querySelector(".err__msg__month");
 const errMsgYear = document.querySelector(".err__msg__year");
@@ -29,6 +28,7 @@ const defaultValues = function () {
   months.textContent = "- -";
   days.textContent = "- -";
 };
+
 // default errors
 const defaultErrors = function () {
   labelYear.style.color = "hsl(0, 100%, 67%)";
@@ -44,6 +44,7 @@ let now = new Date();
 let currYear = now.getFullYear();
 let currMonth = now.getMonth() + 1;
 let currDay = now.getDate();
+const thirtyDayMonths = [4, 6, 9, 11];
 
 // Declaring ages
 let daysOld, monthsOld, yearsOld;
@@ -78,24 +79,15 @@ const handlingErrors = function () {
     labelDay.style.color = "hsl(0, 1%, 44%)";
     inputDay.style.borderColor = "hsl(259, 100%, 65%)";
   }
-  if (
-    (+inputMonth.value === 4 ||
-      +inputMonth.value === 6 ||
-      +inputMonth.value === 9 ||
-      +inputMonth.value === 11) &&
-    +inputDay.value >= 31
-  ) {
+  if (+inputMonth.value === 2 && +inputDay.value > 29) {
     defaultValues();
     defaultErrors();
     errMsgDay.textContent = "Must be a valid date";
   }
-  if (
-    +inputYear.value > currYear ||
-    +inputYear.value < 1800 ||
-    +inputMonth.value > 12 ||
-    +inputDay.value > 31
-  ) {
+  if (thirtyDayMonths.includes(+inputMonth.value) && +inputDay.value >= 31) {
     defaultValues();
+    defaultErrors();
+    errMsgDay.textContent = "Must be a valid date";
   }
 
   // Errors for empty fields
@@ -116,11 +108,6 @@ const handlingErrors = function () {
     labelDay.style.color = "hsl(0, 100%, 67%)";
     inputDay.style.borderColor = "hsl(0, 100%, 67%)";
     errMsgDay.textContent = "This field is required";
-  }
-  if (+inputMonth.value === 2 && +inputDay.value > 29) {
-    defaultValues();
-    defaultErrors();
-    errMsgDay.textContent = "Must be a valid date";
   }
 };
 
